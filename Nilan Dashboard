@@ -1,0 +1,608 @@
+elements:
+  - type: conditional
+    conditions:
+      - entity: input_boolean.minimum_trin_2
+        state: 'on'
+    elements:
+      - type: custom:button-card
+        show_name: true
+        entity: input_boolean.minimum_trin_2
+        icon: mdi:fan-speed-2
+        style:
+          top: 48.0%
+          left: 88.0%
+          width: 20%
+        card_mod:
+          style: |
+            ha-card {
+              top: -126px;
+              left: -0.15px;
+              border: none;
+              border-radius: 20px;
+              background: rgba(222, 260, 260, 0.0);
+            }
+        state:
+          - value: 'on'
+            color: orange
+            name: Låst i trin 2
+            styles:
+              card: null
+              icon:
+                - animation:
+                    - blink 2s linear infinite
+          - value: 'off'
+            color: grey
+            name: Normal drift
+        styles:
+          name:
+            - font-size: 15px
+            - color: white
+            - font-weight: null
+            - padding-bottom: null
+            - padding-top: 5px
+            - padding-bottom: 5px
+            - filter:
+                - drop-shadow(2px 2px 2px black)
+          icon:
+            - filter:
+                - drop-shadow(2px 2px 2px black)
+        tap_action:
+          action: toggle
+          confirmation:
+            text: '[[[ return `Vil du ændre ventilations instilling?` ]]]'
+  - type: custom:button-card
+    show_name: true
+    entity: sensor.cooker_status
+    icon: cil:cooker-hood
+    style:
+      top: 113.5%
+      left: 50.0%
+      width: 17%
+    card_mod:
+      style: |
+        ha-card {
+          top: -126px;
+          left: -0.15px;
+          border: none;
+          border-radius: 20px;
+          background: rgba(222, 260, 260, 0.0);
+        }
+    state:
+      - value: Emhætte tændt
+        color: orange
+        name: Tændt
+        styles:
+          card: null
+          icon:
+            - animation:
+                - blink 2s linear infinite
+      - value: Emhætte slukket
+        color: grey
+        name: Slukket
+    styles:
+      name:
+        - font-size: 17px
+        - color: white
+        - font-weight: null
+        - padding-bottom: null
+        - padding-top: 5px
+        - filter:
+            - drop-shadow(2px 2px 2px black)
+      icon:
+        - filter:
+            - drop-shadow(2px 2px 2px black)
+  - type: custom:button-card
+    show_name: true
+    entity: binary_sensor.air_filter_alarm
+    icon: mdi:air-filter
+    style:
+      top: 112%
+      left: 75%
+      width: 25%
+    card_mod:
+      style: |
+        ha-card {
+          top: -126px;
+          left: -0.15px;
+          border: none;
+          border-radius: 20px;
+          background: rgba(222, 260, 260, 0.0);
+        }
+    state:
+      - value: 'on'
+        color: orange
+        name: Skift filter
+        styles:
+          card: null
+          icon:
+            - animation:
+                - blink 2s linear infinite
+      - value: 'off'
+        color: green
+        name: |
+          [[[
+            return `${states['sensor.days_to_next_filter_change'].state} dage`
+          ]]]
+    styles:
+      name:
+        - font-weight: null
+        - font-size: null
+        - color: white
+        - align-self: null
+        - justify-self: null
+        - padding-bottom: null
+        - filter:
+            - drop-shadow(2px 2px 2px black)
+      icon:
+        - filter:
+            - drop-shadow(2px 2px 2px black)
+  - type: conditional
+    conditions:
+      - entity: binary_sensor.de_icing
+        state: 'on'
+    elements:
+      - type: custom:button-card
+        show_name: true
+        entity: binary_sensor.de_icing
+        entity_picture: /local/defrost4.png
+        show_entity_picture: true
+        style:
+          top: 112%
+          left: 25%
+          width: 30%
+        card_mod:
+          style: |
+            ha-card {
+              top: -126px;
+              left: -0.15px;
+              border: none;
+              border-radius: 20px;
+              background: rgba(222, 260, 260, 0.0);
+            }
+        state:
+          - value: 'on'
+            name: Afrimer
+            styles:
+              card:
+                - animation:
+                    - blink 2s linear infinite
+        styles:
+          name:
+            - font-weight: null
+            - font-size: null
+            - color: white
+            - align-self: null
+            - justify-self: null
+            - padding-bottom: null
+            - filter:
+                - drop-shadow(2px 2px 2px black)
+          icon:
+            - filter:
+                - drop-shadow(2px 2px 2px black)
+  - type: custom:button-card
+    show_name: false
+    show_state: true
+    show_icon: false
+    entity: sensor.outdoor_temperature
+    style:
+      top: 35.0%
+      left: 31.5%
+      width: 100%
+    card_mod:
+      style: |
+        ha-card {
+          top: -126px;
+          left: -0.15px;
+          border: none;
+          border-radius: 20px;
+          background: rgba(222, 260, 260, 0.0);
+        }
+    state:
+      - value: 0
+        operator: <=
+        styles:
+          card:
+            - filter:
+                - >-
+                  drop-shadow(0px 0px 8px blue) drop-shadow(0px 0px 8px blue)
+                  drop-shadow(0px 0px 5px white)
+        icon: mdi:snowflake
+    styles:
+      state:
+        - font-size: 17px
+        - filter:
+            - drop-shadow(2px 2px 2px black)
+      icon:
+        - width: 1%
+        - filter:
+            - drop-shadow(2px 2px 2px black)
+  - type: conditional
+    conditions:
+      - entity: sensor.tempbelowzero
+        state: 'on'
+    elements:
+      - type: custom:button-card
+        show_name: false
+        show_state: false
+        show_icon: true
+        entity: sensor.outdoor_temperature
+        style:
+          top: 31.0%
+          left: 31.5%
+          width: 100%
+        card_mod:
+          style: |
+            ha-card {
+              top: -126px;
+              left: -0.15px;
+              border: none;
+              border-radius: 20px;
+              background: rgba(222, 260, 260, 0.0);
+            }
+        state:
+          - value: 0
+            operator: <=
+            styles:
+              card:
+                - filter:
+                    - >-
+                      drop-shadow(0px 0px 8px blue) drop-shadow(0px 0px 8px
+                      blue) drop-shadow(0px 0px 5px white)
+            icon: mdi:snowflake
+        styles:
+          state:
+            - font-size: 17px
+            - filter:
+                - drop-shadow(2px 2px 2px black)
+          icon:
+            - width: 2.5%
+            - filter:
+                - drop-shadow(2px 2px 2px black)
+  - type: custom:button-card
+    show_name: false
+    show_state: true
+    show_icon: false
+    entity: sensor.outlet_temperature
+    style:
+      top: 35.0%
+      left: 69.5%
+      width: 100%
+    card_mod:
+      style: |
+        ha-card {
+          top: -126px;
+          left: -0.15px;
+          border: none;
+          border-radius: 20px;
+          background: rgba(222, 260, 260, 0.0);
+        }
+    styles:
+      state:
+        - font-size: 17px
+        - filter:
+            - drop-shadow(2px 2px 2px black)
+  - type: custom:button-card
+    show_name: false
+    show_state: true
+    show_icon: false
+    entity: sensor.exhaust_temperature
+    style:
+      top: 91.0%
+      left: 31.5%
+      width: 100%
+    card_mod:
+      style: |
+        ha-card {
+          top: -126px;
+          left: -0.15px;
+          border: none;
+          border-radius: 20px;
+          background: rgba(222, 260, 260, 0.0);
+        }
+    styles:
+      state:
+        - font-size: 17px
+        - filter:
+            - drop-shadow(2px 2px 2px black)
+  - type: custom:button-card
+    show_name: false
+    show_state: true
+    show_icon: false
+    entity: sensor.inlet_temperature
+    style:
+      top: 91.0%
+      left: 69.5%
+      width: 100%
+    card_mod:
+      style: |
+        ha-card {
+          top: -126px;
+          left: -0.15px;
+          border: none;
+          border-radius: 20px;
+          background: rgba(222, 260, 260, 0.0);
+        }
+    styles:
+      state:
+        - font-size: 17px
+        - filter:
+            - drop-shadow(2px 2px 2px black)
+  - type: custom:button-card
+    show_name: false
+    show_state: true
+    show_icon: false
+    entity: sensor.nilan_effective
+    style:
+      top: 74.0%
+      left: 50.0%
+      width: 100%
+    card_mod:
+      style: |
+        ha-card {
+          top: -126px;
+          left: -0.15px;
+          border: none;
+          border-radius: 20px;
+          background: rgba(222, 260, 260, 0.0);
+        }
+    styles:
+      state:
+        - font-size: 17px
+        - filter:
+            - drop-shadow(2px 2px 2px black)
+  - type: custom:button-card
+    show_name: false
+    show_state: true
+    show_icon: false
+    entity: sensor.humidity
+    style:
+      top: 98.0%
+      left: 50.5%
+      width: 100%
+    card_mod:
+      style: |
+        ha-card {
+          top: -126px;
+          left: -0.15px;
+          border: none;
+          border-radius: 20px;
+          background: rgba(222, 260, 260, 0.0);
+        }
+    styles:
+      state:
+        - font-size: 17px
+        - filter:
+            - drop-shadow(2px 2px 2px black)
+  - type: custom:button-card
+    show_name: true
+    name: Udsug
+    show_state: true
+    show_icon: false
+    entity: sensor.exhaust_fan_speed
+    style:
+      top: 76.0%
+      left: 25.0%
+      width: 100%
+    card_mod:
+      style: |
+        ha-card {
+          top: -126px;
+          left: -0.15px;
+          border: none;
+          border-radius: 20px;
+          background: rgba(222, 260, 260, 0.0);
+        }
+    styles:
+      name:
+        - font-weight: null
+        - font-size: 15px
+        - color: white
+        - align-self: null
+        - justify-self: null
+        - padding-bottom: 6px
+        - filter:
+            - drop-shadow(2px 2px 2px black)
+      state:
+        - font-size: 17px
+        - filter:
+            - drop-shadow(2px 2px 2px black)
+  - type: custom:button-card
+    show_name: true
+    name: Indblæs
+    show_state: true
+    show_icon: false
+    entity: sensor.inlet_fan_speed
+    style:
+      top: 76.0%
+      left: 75.5%
+      width: 100%
+    card_mod:
+      style: |
+        ha-card {
+          top: -126px;
+          left: -0.15px;
+          border: none;
+          border-radius: 20px;
+          background: rgba(222, 260, 260, 0.0);
+        }
+    styles:
+      name:
+        - font-weight: null
+        - font-size: 15px
+        - color: white
+        - align-self: null
+        - justify-self: null
+        - padding-bottom: 6px
+        - filter:
+            - drop-shadow(2px 2px 2px black)
+      state:
+        - font-size: 17px
+        - filter:
+            - drop-shadow(2px 2px 2px black)
+  - type: custom:button-card
+    show_name: true
+    show_state: false
+    show_icon: false
+    entity: binary_sensor.bypass_open
+    style:
+      top: 66.5%
+      left: 50.0%
+      width: 100%
+    card_mod:
+      style: |
+        ha-card {
+          top: -126px;
+          left: -0.15px;
+          border: none;
+          border-radius: 20px;
+          background: rgba(222, 260, 260, 0.0);
+        }
+    state:
+      - value: 'off'
+        color: white
+        name: Bypass lukket
+      - value: 'on'
+        color: white
+        name: Bypass åbent
+    styles:
+      name:
+        - font-weight: null
+        - font-size: 15px
+        - color: white
+        - align-self: null
+        - justify-self: null
+        - padding-bottom: 6px
+        - filter:
+            - drop-shadow(2px 2px 2px black)
+      state:
+        - font-size: 17px
+        - filter:
+            - drop-shadow(2px 2px 2px black)
+  - entity: binary_sensor.summer_mode
+    state_filter:
+      Sommerdrift: brightness(100%)  saturate(1)
+      SommerdriftX: brightness(90%) saturate(1.2)
+      Vinterdrift: brightness(100%)  saturate(1)
+      VinterdriftX: brightness(50%) hue-rotate(45deg)
+    state_image:
+      'on': /local/nilan/sommer.png
+      'off': mdi:snowflake
+    style:
+      left: 30%
+      top: 50%
+      color: white
+    type: image
+  - type: custom:button-card
+    show_name: true
+    entity: binary_sensor.summer_mode
+    icon: mdi:snowflake
+    style:
+      top: 48.0%
+      left: 12.0%
+      width: 20%
+    card_mod:
+      style: |
+        ha-card {
+          top: -126px;
+          left: -0.15px;
+          border: none;
+          border-radius: 20px;
+          background: rgba(222, 260, 260, 0.0);
+        }
+    state:
+      - value: 'off'
+        color: lightblue
+        name: Vinterdrift
+        icon: mdi:snowflake
+      - value: 'on'
+        color: yellow
+        name: Sommerdrift
+        icon: mdi:weather-sunny
+    styles:
+      name:
+        - font-size: 15px
+        - color: white
+        - font-weight: null
+        - padding-top: 5px
+        - padding-bottom: 5px
+        - filter:
+            - drop-shadow(2px 2px 2px black)
+      icon:
+        - filter:
+            - drop-shadow(2px 2px 2px black)
+  - type: custom:button-card
+    show_name: true
+    entity: sensor.actual_fan_step
+    icon: mdi:fan
+    style:
+      top: 53.0%
+      left: 50.0%
+      width: 20%
+    card_mod:
+      style: |
+        ha-card {
+          top: -126px;
+          left: -0.15px;
+          border: none;
+          border-radius: 20px;
+          background: rgba(222, 260, 260, 0.0);
+        }
+    state:
+      - value: 0
+        color: red
+        name: Slukket
+        icon: mdi:fan-off
+        styles:
+          card: null
+          icon:
+            - animation:
+                - blink 2s linear infinite
+      - value: 1
+        color: white
+        name: Trin 1
+        icon: mdi:fan
+        styles:
+          card: null
+          icon:
+            - animation:
+                - rotating 6s linear infinite
+      - value: 2
+        color: white
+        name: Trin 2
+        icon: mdi:fan
+        styles:
+          card: null
+          icon:
+            - animation:
+                - rotating 4s linear infinite
+      - value: 3
+        color: white
+        name: Trin 3
+        icon: mdi:fan
+        styles:
+          card: null
+          icon:
+            - animation:
+                - rotating 2s linear infinite
+      - value: 4
+        color: white
+        name: Trin 4
+        icon: mdi:fan
+        styles:
+          card: null
+          icon:
+            - animation:
+                - rotating 1s linear infinite
+    styles:
+      name:
+        - font-size: 17px
+        - color: white
+        - font-weight: null
+        - padding-bottom: 5px
+        - filter:
+            - drop-shadow(2px 2px 2px black)
+      icon:
+        - filter:
+            - drop-shadow(2px 2px 2px black)
+image: /local/nilan/nilan1.png
+type: picture-elements
