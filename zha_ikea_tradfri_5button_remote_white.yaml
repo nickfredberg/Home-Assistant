@@ -73,6 +73,9 @@ action:
           - service: light.toggle
             target:
               entity_id: !input light
+            data:
+              brightness: 50
+              color_temp: 150
 
       # Long-Press on the power button.
       - conditions:
@@ -83,8 +86,8 @@ action:
             target:
               entity_id: !input light
             data:
-              brightness: 50
-              color_temp: 150
+              brightness: 250
+              color_temp: 400
 
       # Short-Press on the dim-up button.
       - conditions:
